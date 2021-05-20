@@ -27,8 +27,8 @@ router.get('/api/dataBySeason', (ctx, next) => {
         return {
             ...data,
             name,
-            winRate: Number(data.win) / (Number(data.win) + Number(data.lose) + Number(data.absence)),
-            kda: (Number(data.kill) + Number(data.assist)) / Number(data.death),
+            winRate: Number(data.win) / ((Number(data.win) + Number(data.lose) + Number(data.absence)) || 1),
+            kda: (Number(data.kill) + Number(data.assist)) / (Number(data.death) || 1),
         }
     });
     ctx.response.body = orderBy(list, ['winRate', 'kda'], ['desc', 'desc']);
