@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>数据统计页</title>
+    <link rel="stylesheet" href="./css/bootstrap.css" />
+</head>
+
+<body>
+    <div class="container-lg pt-3">
+        <div class="row gx-1 mb-2">
+            <div class="col-3">
+                <select id="seasons" class="form-select w-100 h-100" aria-label="Default select example">
+
+                </select>
+            </div>
+            <div class="col-21">
+                <button type="button" class="btn btn-primary mr-1" id="seasonModalBtn">新增赛季</button>
+                <button type="button" class="btn btn-primary" id="createUserModalBtn">新增成员</button>
+            </div>
+        </div>
+        <div class="row gx-1 mb-2">
+            <div class="col-24">共计 <span id="total"></span> 场</div>
+        </div>
+        <table class="table w-100">
+            <thead>
+                <tr>
+                    <th scope="col">排名</th>
+                    <th scope="col">name</th>
+                    <th scope="col">win</th>
+                    <th scope="col">lose</th>
+                    <th scope="col">absence</th>
+                    <th scope="col">winrate</th>
+                    <th scope="col">kill</th>
+                    <th scope="col">death</th>
+                    <th scope="col">assist</th>
+                    <th scope="col">kda</th>
+                    <th scope="col">op</th>
+                </tr>
+            </thead>
+            <tbody id="season-data">
+
+            </tbody>
+        </table>
+    </div>
+    <div class="modal fade" id="seasonModal" style="background-color: rgba(0, 0, 0, 0.5);" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新增赛季</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        data-bs-modal="#seasonModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">name：</label>
+                        <input type="text" class="form-control name">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close" data-bs-dismiss="modal"
+                        data-bs-modal="#seasonModal">Close</button>
+                    <button type="button" class="btn btn-primary" id="createSeason">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="createUserModal" style="background-color: rgba(0, 0, 0, 0.5);" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">新增成员</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        data-bs-modal="#createUserModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">name：</label>
+                        <input type="text" class="form-control name">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close" data-bs-dismiss="modal"
+                        data-bs-modal="#createUserModal">Close</button>
+                    <button type="button" class="btn btn-primary" id="createUser">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" style="background-color: rgba(0, 0, 0, 0.5);" id="editUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">编辑成员</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        data-bs-modal="#editUserModal">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">name：</label>
+                        <input type="text" class="form-control name">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">win：</label>
+                        <input type="number" class="form-control win">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">lose：</label>
+                        <input type="number" class="form-control lose">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">absence：</label>
+                        <input type="number" class="form-control absence">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">kill：</label>
+                        <input type="number" class="form-control kill">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">death：</label>
+                        <input type="number" class="form-control death">
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleFormControlInput1" class="form-label">assist：</label>
+                        <input type="number" class="form-control assist">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary btn-close" data-bs-dismiss="modal"
+                        data-bs-modal="#editUserModal">Close</button>
+                    <button type="button" class="btn btn-primary" id="editUser">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>
